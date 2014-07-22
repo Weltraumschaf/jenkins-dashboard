@@ -13,3 +13,21 @@ This is a Jenkins dashboard based on [Dashing](http://shopify.github.com/dashing
 ## Links
 
 - [Better CI results visualization with Jenkins, Dashing and Groovy black magic](https://www.andreydevyatkin.com/archives/getting-started-with-dashing/)
+
+## Bundle & Run
+
+Bundle:
+
+    $> bundle install --path vendor/bundle
+    
+Run:
+
+    $> dashing start
+
+## Push to Dashing
+
+Try this:
+
+    $> curl -d \
+        '{ "auth_token": "YOUR_AUTH_TOKEN", "text": "Hey, Look what I can do!" }' \
+        \http://localhost:3030/widgets/welcome
