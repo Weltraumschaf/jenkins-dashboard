@@ -8,6 +8,7 @@ JENKINS_AUTH = {
   'name' => nil,
   'password' => nil
 }
+JENKINS_USE_SSL = false
 
 # the key of this mapping must be a unique identifier for your job, the according value must be the name that is specified in jenkins
 job_mapping = {
@@ -38,25 +39,28 @@ def get_json_for_job(job_name, build = 'lastBuild')
   job_name = URI.encode(job_name)
   http = Net::HTTP.new(JENKINS_URI.host, JENKINS_URI.port)
   request = Net::HTTP::Get.new("/job/#{job_name}/#{build}/api/json")
-  http.use_ssl = true 
-  http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-  
+
+  if JENKINS_USE_SSL
+    http.use_ssl = true
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+  end
+
   if JENKINS_AUTH['name']
     request.basic_auth(JENKINS_AUTH['name'], JENKINS_AUTH['password'])
   end
-  
+
   response = http.request(request)
   JSON.parse(response.body)
 end
 
 job_mapping.each do |title, jenkins_project|
   current_status = nil
-  
+
   SCHEDULER.every '10s', :first_in => 0 do |job|
     last_status = current_status
     build_info = get_json_for_job(jenkins_project[:job])
     current_status = build_info["result"]
-    
+
     if build_info["building"]
       current_status = "BUILDING"
       percent = get_completion_percentage(jenkins_project[:job])
