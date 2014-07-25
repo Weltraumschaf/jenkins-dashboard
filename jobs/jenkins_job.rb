@@ -61,7 +61,7 @@ def get_json_for_job(job_name, build = 'lastBuild')
   JSON.parse(response.body)
 end
 
-job_mapping.each do |title, jenkins_project|
+JENKINS_JOB_CONFIG[:job_mapping].each do |title, jenkins_project|
   current_status = nil
 
   SCHEDULER.every JENKINS_JOB_CONFIG[:interval], :first_in => 0 do |job|
