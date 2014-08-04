@@ -9,12 +9,12 @@ $moreinfo-color:    rgba(255, 255, 255, 0.7);
 $meter-background:  rgba(20, 20, 20, 1);
 
 // ----------------------------------------------------------------------------
-// Widget-jenkins-build styles
+// Widget-jenkins-job styles
 // ----------------------------------------------------------------------------
-.widget-jenkins-build {
+.widget-jenkins-job {
   background-color: $background-color;
 
-  input.jenkins-build {
+  input.jenkins-job {
     background-color: $meter-background;
     color: #fff;
   }
