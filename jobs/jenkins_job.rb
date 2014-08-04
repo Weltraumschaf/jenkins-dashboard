@@ -2,21 +2,7 @@ require 'net/http'
 require 'json'
 require 'time'
 
-JENKINS_JOB_CONFIG = {
-  :uri      => URI.parse("https://ci.weltraumschaf.de"),
-  :username => nil,
-  :password => nil,
-  :use_ssl  => true,
-  :interval => '10s',
-  # the key of this mapping must be a unique identifier for your job, the according value must be the name that is specified in jenkins
-  :job_mapping => {
-    'caythe'      => { :job => 'Cay-The' },
-    'commons'     => { :job => 'Commons' },
-    'dht'         => { :job => 'DHT' },
-    'groundzero'  => { :job => 'GroundZero' },
-    'jvfs'        => { :job => 'jvfs' }
-  }
-}
+require_relative 'jenkins_job_config'
 
 def get_number_of_failing_tests(job_name)
   info = get_json_for_job(job_name, 'lastCompletedBuild')
