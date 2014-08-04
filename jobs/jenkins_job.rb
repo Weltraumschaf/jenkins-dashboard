@@ -18,15 +18,6 @@ JENKINS_JOB_CONFIG = {
   }
 }
 
-# the key of this mapping must be a unique identifier for your job, the according value must be the name that is specified in jenkins
-job_mapping = {
-  'caythe'      => { :job => 'Cay-The' },
-  'commons'     => { :job => 'Commons' },
-  'dht'         => { :job => 'DHT' },
-  'groundzero'  => { :job => 'GroundZero' },
-  'jvfs'        => { :job => 'jvfs' }
-}
-
 def get_number_of_failing_tests(job_name)
   info = get_json_for_job(job_name, 'lastCompletedBuild')
   info['actions'][4]['failCount']
